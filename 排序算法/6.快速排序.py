@@ -1,7 +1,9 @@
 import random
 import numpy as np
 
-
+"""
+快速排序
+"""
 def kuaisu(arr, left, right):
     if left >= right:
         return
