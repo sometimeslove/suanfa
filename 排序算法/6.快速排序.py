@@ -15,6 +15,6 @@ if __name__ == '__main__':
 	xuanzhe(arr)
 	print(arr)
 	np.random.shuffle(arr)
-	print(arr)
+	print(arr )
 	xuanzhe(arr)
 	print(arr)
