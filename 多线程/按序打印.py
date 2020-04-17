@@ -10,6 +10,8 @@ def printFirst():
             time.sleep(0.5)
             print("first")
             con1.notify_all()
+            # 这个time.sleep(0.5)放的位置不同，完全是两种输出，有助于理解整个Condition
+            # time.sleep(0.5)
         time.sleep(0.5)
 
 def printSecond():
