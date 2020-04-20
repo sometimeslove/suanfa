@@ -48,6 +48,52 @@ output[i] = [a, b, c] (3个整数)
 链接：https://leetcode-cn.com/problems/the-dining-philosophers
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 '''
+from threading import Thread,Condition,Semaphore
+import time
+
+class Philosopher(Thread):
+    def __init__(self,name,seq,cons):
+        self.myname = name
+        # 每个人优先拿的筷子编号，默认seq是左边的编号，seq+1是右边筷子的编号，最后一个人的右边的编号是0
+        self.seq = seq
+        self.cons = cons
+        Thread.__init__(self)
+
+    def think(self):
+        print('哲学家{0}正在思考！'.format(self.myname))
+        time.sleep(2)
+
+    def take(self,chip):
+        self.cons[chip].acquire()
+        print('哲学家{0}拿起了筷子{1}！'.format(self.myname,chip))
+        return True
+
+    def eat(self):
+        print('哲学家{0}正在吃饭！'.format(self.myname))
+        time.sleep(2)
+        print('哲学家{0}吃饱放下筷子！'.format(self.myname))
+        self.cons[self.seq].release()
+        self.cons[(self.seq+1)%5].release()
+        return True
+
+    def run(self):
+        while True:
+            if self.seq == len(cons)-1:
+                if self.take(0):
+                    if self.take(self.seq):
+                        self.eat()
+                        self.think()
+            else:
+                if self.take(self.seq):
+                    if self.take((self.seq+1)%5):
+                        self.eat()
+                        self.think()
+
+if __name__ == '__main__':
+    cons = [Semaphore(1) for i in range(5) ]
+    names = ['赵四0','刘能1','谢广坤2','刘大脑袋3','王老七4']
+    for i in range(5):
+        Philosopher(names[i],i,cons).start()
 
 
 
