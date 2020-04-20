@@ -21,6 +21,7 @@ def func():
         # 调用release()将释放锁。
         lock.release()
 
+
 t1 = threading.Thread(target=func)
 t2 = threading.Thread(target=func)
 t3 = threading.Thread(target=func)
